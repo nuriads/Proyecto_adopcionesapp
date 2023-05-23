@@ -33,4 +33,10 @@ function getAnimal($microchip):Animal{
     
     return $animal;
 }
+
+function getAnimales($especie){
+    $midb = AccesoDatos::getModelo();
+    $array_animales=$midb->getAnimales($especie);
+    return $array_animales;
+}
 ?>

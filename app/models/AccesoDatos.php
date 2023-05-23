@@ -145,7 +145,7 @@ class AccesoDatos {
         return $resu;
     }
     // SELECT ANIMAL Devuelvo un animal o false
-    public function getAnimal (string $microchip) {
+    public function getAnimal (string $microchip):Animal {
         $animal = false;
         $stmt_animal   = $this->dbh->prepare("select * from animal where microchip=:microchip");
         $stmt_animal->setFetchMode(PDO::FETCH_CLASS, 'animal');
@@ -156,5 +156,21 @@ class AccesoDatos {
             }
         }
         return $animal;
+    }
+
+     // SELECT ANIMAL Devuelvo un animal o false
+     public function getAnimales (string $especie){
+        $array_animales = [];
+        $stmt_animal   = $this->dbh->prepare("select * from animal where especie=:especie");
+        $stmt_animal->setFetchMode(PDO::FETCH_CLASS, 'animal');
+        $stmt_animal->bindParam(':especie', $especie);
+        if ( $stmt_animal->execute() ){
+            while ( $animal = $stmt_animal->fetch()){
+               $array_animales[]= $animal;
+            }
+        }
+
+        // Devuelvo el array de animales
+        return $array_animales;
     }
 }
