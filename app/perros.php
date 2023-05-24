@@ -4,7 +4,7 @@ include './models/AccesoDatos.php';
 include './models/Animal.php';
 include './models/crud/funcionesCrud.php';
 
-$array_perros=getAnimales('perro');
+$array_carrusel=getAnimales('perro');
 ?>
 
 <section id="mascotas">
