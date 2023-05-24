@@ -158,6 +158,23 @@ class AccesoDatos {
         return $animal;
     }
 
+    // SELECT Devuelvo la lista de todos Animales en la BBDD
+    public function getallAnimals ():array {
+        $tanimals = [];
+        // Crea la sentencia preparada
+        $stmt_animales  = $this->dbh->prepare("select * from animal");
+       
+        $stmt_animales->setFetchMode(PDO::FETCH_CLASS, 'animal');
+    
+        if ( $stmt_animales->execute() ){
+            while ( $animal = $stmt_animales->fetch()){
+               $tanimals[]= $animal;
+            }
+        }
+        // Devuelvo el array de objetos
+        return $tanimals;
+    }
+
      // SELECT ANIMAL Devuelvo un animal o false
      public function getAnimales (string $especie){
         $array_animales = [];
