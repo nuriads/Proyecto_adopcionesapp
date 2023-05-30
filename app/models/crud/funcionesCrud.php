@@ -42,11 +42,21 @@ function getAnimales($especie){
 
 function randomAnimals(){
     $midb = AccesoDatos::getModelo();
+    //Almaceno todos los animales de la BBDD en un array
     $array_animales=$midb->getallAnimals();
     $array_carrusel=[];
-    //Genero  6 númeoros aleatorios
+    //Genero  6 números aleatorios
     for($i=0;$i<=8;$i++){
         $num=random_int (0,count($array_animales)-1);
+        //Compruebo que no se repita el animal
+        if($i!=0){
+            for ($j=0;$j<=$i-1;$j++){
+                if( $array_carrusel[$j]->microchip==$array_animales[$num]->microchip){
+                    $num=random_int (0,count($array_animales)-1);
+                    $j--;
+                }
+            }
+        }    
         // Añado el animal que está en la posición $num del array 
         $array_carrusel[]=$array_animales[$num];
     }
